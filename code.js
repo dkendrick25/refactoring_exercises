@@ -261,15 +261,6 @@ function beats(aPlayer, anotherPlayer) {
   } else if (aPlayer === "paper" && anotherPlayer === 'rock') {
     return true;
   }
-  // else if (aPlayer === 'sissors' && anotherPlayer === 'rock') {
-  //   return false;
-  // }  else if (aPlayer === 'sissors' && anotherPlayer === 'paper') {
-  //   return true;
-  // } else if (aPlayer === 'paper' && anotherPlayer === 'rock') {
-  //   return true;
-  // } else if (aPlayer === 'paper' && anotherPlayer === 'sissors') {
-  //   return false;
-  // }
 }
 function roshambo(player1, player2) {
   if (player1 === player2) {
@@ -339,64 +330,43 @@ Bonus Challenge: Tic Tac Toe
 
 Un-suck this code.
 */
+var winningCombos = [
+[0, 3, 6],
+[1, 4, 7],
+[2, 5, 8],
+[0, 1, 2],
+[3, 4, 5],
+[6, 7, 8],
+[0, 4, 8],
+[6, 4, 2]
+];
+
 function ticTacToe(board) {
-  // horizontal rows
-  if (board[0][0] === 'O' && board[0][1] === 'O' && board[0][2] === 'O') {
-    return 'O';
+  function playerOccupiesSquares(player, squares, board) {
+    for (var i = 0; i < squares.length; i++) {
+      var idx = squares[i];
+      var value = board[idx];
+      //does player occupy all three spots
+      if (value !== player) {
+        return false;
+      }
+    }
+    //player occupies all three spots
+    return true;
   }
-  if (board[1][0] === 'O' && board[1][1] === 'O' && board[1][2] === 'O') {
-    return 'O';
+  for (var i = 0; i < winningCombos.length; i++) {
+    var combo = winningCombos[i];
+    //if true
+    if (playerOccupiesSquares('O', combo, board)) {
+      return 'O';
+    }
+    if (playerOccupiesSquares('X', combo, board)) {
+      return 'X';
+    }
   }
-  if (board[2][0] === 'O' && board[2][1] === 'O' && board[2][2] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[0][1] === 'X' && board[0][2] === 'X') {
-    return 'X';
-  }
-  if (board[1][0] === 'X' && board[1][1] === 'X' && board[1][2] === 'X') {
-    return 'X';
-  }
-  if (board[2][0] === 'X' && board[2][1] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
-
-  // vertical rows
-  if (board[0][0] === 'O' && board[1][0] === 'O' && board[2][0] === 'O') {
-    return 'O';
-  }
-  if (board[0][1] === 'O' && board[1][1] === 'O' && board[2][1] === 'O') {
-    return 'O';
-  }
-  if (board[0][2] === 'O' && board[1][2] === 'O' && board[2][2] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[1][0] === 'X' && board[2][0] === 'X') {
-    return 'X';
-  }
-  if (board[0][1] === 'X' && board[1][1] === 'X' && board[2][1] === 'X') {
-    return 'X';
-  }
-  if (board[0][2] === 'X' && board[1][2] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
-
-  // diagnals
-  if (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O') {
-    return 'O';
-  }
-  if (board[0][2] === 'O' && board[1][1] === 'O' && board[2][0] === 'O') {
-    return 'O';
-  }
-  if (board[0][0] === 'X' && board[1][1] === 'X' && board[2][2] === 'X') {
-    return 'X';
-  }
-  if (board[0][2] === 'X' && board[1][1] === 'X' && board[2][0] === 'X') {
-    return 'X';
-  }
-
-  // no winner
   return null;
 }
+
 
 // function ticTacToe(board) {
 //   // horizontal rows
